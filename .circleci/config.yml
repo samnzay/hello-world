@@ -66,6 +66,17 @@ jobs:
     steps:
       - print_pipeline_id #REUSEDCODE FROM COMMAND SECTION ABOVE
 
+  job-failure-test:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: return 1 #return a non-zero value means a failure
+      - run: 
+          name: on Error
+          command: echo "Hello Error Test by Samuel"
+          when: on_fail #condition to run  this command only when the previous failed
+
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -86,3 +97,4 @@ workflows:
             - save_hello_world_output
 
       - my_job
+      - job-failure-test
