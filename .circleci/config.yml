@@ -23,9 +23,13 @@ jobs:
 
   print_author:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/base:2020.01
     steps:
-      - run: echo $AUTHOR_NAMES
+      - checkout
+      - run:
+          name: "echo an env var that is part of our project"
+          command: |
+            echo $AUTHOR_NAMES
     
 
 # Invoke jobs via workflows
